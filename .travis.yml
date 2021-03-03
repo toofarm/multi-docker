@@ -1,0 +1,27 @@
+sudo: required
+language: generic 
+services:
+  - docker
+
+# Run this build prior to deployment so we have a version to test on. Could add more scripts if we had tests in other service directories
+before_install:
+  - docker build -t sdanaher/client-test -f ./client/Dockerfile.dev ./client
+
+# Run the tests
+script:
+  - docker run -e CI=true sdanaher/client-test npm test -- --coverage
+
+# Once our tests pass, build and tag each service from its own directory
+after_success:
+  - docker build -t sdanaher/multi-client ./client
+  - docker build -t sdanaher/multi-nginx ./nginx
+  - docker build -t sdanaher/multi-server ./server
+  - docker build -t sdanaher/multi-worker ./worker
+  # Log into the Docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take built images and push them to Docker Hub
+  - docker push sdanaher/multi-client
+  - docker push sdanaher/multi-nginx
+  - docker push sdanaher/multi-worker
+  - docker push sdanaher/multi-server
+
