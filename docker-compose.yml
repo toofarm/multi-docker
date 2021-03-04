@@ -9,7 +9,7 @@ services:
     build:
       dockerfile: Dockerfile.dev
       context: ./nginx
-    ports: # Nginx does actually need port mapping
+    ports: # Nginx does actually need port mapping, since it's opened to the outside world
       - '3050:80'
     depends_on:
       - api

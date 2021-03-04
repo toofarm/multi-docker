@@ -25,3 +25,16 @@ after_success:
   - docker push sdanaher/multi-worker
   - docker push sdanaher/multi-server
 
+deploy:
+  provider: elasticbeanstalk
+  region: us-west-2
+  app: multi-docker
+  env: Multidocker-env
+  bucket_name: elasticbeanstalk-us-west-2-810109094988
+  bucket_path: multi-docker
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+   secret_access_key: $AWS_SECRET_KEY
+
+
