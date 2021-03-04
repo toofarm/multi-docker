@@ -19,3 +19,7 @@ Redis database that handles complex calculations
 ## Run dev
 
 docker-compose up
+
+## Run build
+
+Travis CI automatically deploys when user merges to 'master' branch
