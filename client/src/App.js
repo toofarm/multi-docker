@@ -10,6 +10,7 @@ function App() {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
+          <h1>Fibonnaci(sp?) Calculator</h1>
           <Link to="/">Home</Link>
           <Link to="/otherpage">Other Page</Link>
           <div>
@@ -31,5 +32,3 @@ function App() {
 }
 
 export default App;
-
-// docker run -it IMAGE_ID
